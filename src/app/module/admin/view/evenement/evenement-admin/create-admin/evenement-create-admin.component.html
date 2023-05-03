@@ -1,0 +1,116 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'evenementTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'evenementTabPan' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="1">{{'evenementCode' | translate}}<span style="color: red;">*</span></label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'evenementCode' | translate}}" id="1" [(ngModel)]="item.code"
+                                                            [ngClass]="{'ng-invalid ng-dirty' : !validEvenementCode}"  />
+                                                    <small class='p-error' *ngIf='!validEvenementCode'>Code est obligatoire.</small>
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="2">{{'evenementJourneytDate' | translate}}</label>
+                                                    <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="{{'evenementJourneytDate' | translate}}"  [(ngModel)]="item.journeytDate"
+                                                            dateFormat="{{dateFormat}}"  >
+                                                    </p-calendar>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-2">
+                                                <label for="3">{{'evenementVoie' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="voies" [(ngModel)]="item.voie" id="3" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementVoie' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                            <div class="field col-11 md:col-2">
+                                                <label for="4">{{'evenementMessageType' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="messageTypes" [(ngModel)]="item.messageType" id="4" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementMessageType' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateMessageType('MessageType')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                            <div class="field col-11 md:col-2">
+                                                <label for="5">{{'evenementTelePeayage' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="telePeayages" [(ngModel)]="item.telePeayage" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementTelePeayage' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                            <div class="field col-11 md:col-2">
+                                                <label for="6">{{'evenementTypeEquipement' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="typeEquipements" [(ngModel)]="item.typeEquipement" id="6" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementTypeEquipement' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                            <div class="field col-11 md:col-2">
+                                                <label for="7">{{'evenementEventType' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="eventTypes" [(ngModel)]="item.eventType" id="7" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementEventType' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateEventType('EventType')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                                <div class="field col-12 md:col-3">
+                                                    <label for="8">{{'evenementEventDetails' | translate}}</label>
+                                                    <textarea id="8" pInputTextarea rows="5" cols="30" placeholder="{{'evenementEventDetails' | translate}}"  [(ngModel)]="item.eventDetails"
+                                                             ></textarea>
+                                                    
+                                                </div>
+
+                                            <div class="field col-11 md:col-2">
+                                                <label for="9">{{'evenementStation' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="stations" [(ngModel)]="item.station" id="9" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementStation' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                            <div class="field col-11 md:col-2">
+                                                <label for="10">{{'evenementAnomalie' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="anomalies" [(ngModel)]="item.anomalie" id="10" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'evenementAnomalie' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateAnomalie('Anomalie')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                </div>
+                            </p-tabPanel>
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple label="Valider"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+            <app-message-type-create-admin></app-message-type-create-admin>
+            <app-event-type-create-admin></app-event-type-create-admin>
+            <app-anomalie-create-admin></app-anomalie-create-admin>
+
+
+    </p-dialog>

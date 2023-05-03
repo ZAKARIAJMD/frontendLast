@@ -1,0 +1,64 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'evenementTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'evenementTabPan' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-3">
+                        <label for="1">{{'Code' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Code' | translate}}" autofocus  id="1" [(ngModel)]="item.code">
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="2">{{'Journeyt date' | translate}}</label>
+                        <p-calendar id="2" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'Journeyt date' | translate}}"  [(ngModel)]="item.journeytDate" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="3">{{'Voie' | translate}}</label>
+                        <p-dropdown [options]="voies" [(ngModel)]="item.voie" id="3" [disabled]="true" optionLabel="libelle" placeholder="{{'Voie' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="4">{{'Message type' | translate}}</label>
+                        <p-dropdown [options]="messageTypes" [(ngModel)]="item.messageType" id="4" [disabled]="true" optionLabel="libelle" placeholder="{{'Message type' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="5">{{'Tele peayage' | translate}}</label>
+                        <p-dropdown [options]="telePeayages" [(ngModel)]="item.telePeayage" id="5" [disabled]="true" optionLabel="libelle" placeholder="{{'Tele peayage' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="6">{{'Type equipement' | translate}}</label>
+                        <p-dropdown [options]="typeEquipements" [(ngModel)]="item.typeEquipement" id="6" [disabled]="true" optionLabel="libelle" placeholder="{{'Type equipement' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="7">{{'Event type' | translate}}</label>
+                        <p-dropdown [options]="eventTypes" [(ngModel)]="item.eventType" id="7" [disabled]="true" optionLabel="libelle" placeholder="{{'Event type' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="8">{{'Event details' | translate}}</label>
+                        <textarea id="8" pInputTextarea rows="5" cols="30" [disabled]="true" placeholder="{{'Event details' | translate}}"  [(ngModel)]="item.eventDetails"></textarea>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="9">{{'Station' | translate}}</label>
+                        <p-dropdown [options]="stations" [(ngModel)]="item.station" id="9" [disabled]="true" optionLabel="libelle" placeholder="{{'Station' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="10">{{'Anomalie' | translate}}</label>
+                        <p-dropdown [options]="anomalies" [(ngModel)]="item.anomalie" id="10" [disabled]="true" optionLabel="libelle" placeholder="{{'Anomalie' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+
