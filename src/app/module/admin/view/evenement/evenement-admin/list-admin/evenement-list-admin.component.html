@@ -4,6 +4,9 @@
         <div class="card">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
+                    <form (submit)="upload()">
+                        <input type="file" name="file" (change)="onFileSelected($event)" accept=".xlsx">
+                        <button type="submit">Upload</button> </form>
                                         <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Evenement')"></button>
                     <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
                     <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>

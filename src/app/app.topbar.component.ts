@@ -15,6 +15,7 @@ export class AppTopBarComponent {
     roleAdmin = false;
 
     constructor(public app: AppComponent, public appMain: AppMainComponent, private authService: AuthService, private translateService: TranslateService) {
+
     }
 
     useLanguage(language: string): void {
