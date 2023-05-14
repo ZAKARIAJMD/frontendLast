@@ -21,6 +21,7 @@ import {VoieDto} from 'src/app/controller/model/Voie.model';
 import {TypeEquipementDto} from 'src/app/controller/model/TypeEquipement.model';
 import {MessageTypeDto} from 'src/app/controller/model/MessageType.model';
 import {HttpClient} from "@angular/common/http";
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class EvenementListAdminComponent extends AbstractListController<Evenemen
     stations :Array<StationDto>;
     anomalies :Array<AnomalieDto>;
     fileToUpload: File = null;
+    data : [][];
 
 
 
@@ -47,20 +49,9 @@ export class EvenementListAdminComponent extends AbstractListController<Evenemen
                 private eventTypeService: EventTypeService, private stationService: StationService, private anomalieService: AnomalieService ,private http: HttpClient) {
         super(evenementService);
     }
-    onFileSelected(event: any): void {
-        this.fileToUpload = event.target.files.item(0);
-    }
 
-    upload(): void {
-        this.evenementService.uploadFile(this.fileToUpload).subscribe(data => {
-            if (data != null) {
-                console.log(data);
-                alert('save succreful');
-            } else {
-                alert('save failed');
-            }}
-        );
-    }
+
+
 
 
 
@@ -76,6 +67,65 @@ export class EvenementListAdminComponent extends AbstractListController<Evenemen
         this.loadStation();
         this.loadAnomalie();
     }
+    onFileChange(evt: any) {
+        const target: DataTransfer = <DataTransfer>(evt.target);
+
+        if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+
+        const reader: FileReader = new FileReader();
+
+        reader.onload = (e: any) => {
+            const bstr: string = e.target.result;
+
+            const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+            const wsname: string = wb.SheetNames[0];
+
+            const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+            console.log(ws);
+
+            const data: any[] = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false });
+
+            const headers: string[] = data.shift();
+
+            const result: any[] = [];
+
+            for (const row of data) {
+                const obj: any = {};
+
+                for (let i = 0; i < headers.length; i++) {
+                    obj[headers[i]] = row[i];
+                }
+
+                result.push(obj);
+            }
+
+            console.log(result);
+
+
+            // Call the service to upload the data to the backend
+            const jsonResult = JSON.stringify(result);
+            const sata = jsonResult.split('\n'); // split the JSON string into an array of strings
+            this.evenementService.uploadFile(sata).subscribe(response => {
+                if(response != null) {
+                    console.log(response);
+                    alert("DATA SAVED SUCCESSFULLY")
+                }else {
+                    alert("ERROR")
+                }
+
+            });
+        };
+
+        reader.readAsBinaryString(target.files[0]);
+    }
+
+
+
+
+
+
 
     public async loadEvenements(){
         await this.roleService.findAll();
